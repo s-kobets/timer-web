@@ -142,8 +142,14 @@ class Timers extends PureComponent {
     this.setState({ timers: [...timers] });
   };
 
+  currentDeg = (value, deg360) => {
+    if (deg360 === 0) return 0;
+    if (value === deg360) return 360;
+    return ((deg360 - value) * 360) / deg360;
+  };
+
   render() {
-    const { timers } = this.state;
+    const { timers, timersValue } = this.state;
     return (
       <div>
         <Content onSubmit={this.startTimer}>
@@ -156,6 +162,16 @@ class Timers extends PureComponent {
                 value={convertInTimer(timer.value)}
                 onChange={this.handleChangeTimer}
               />
+              <CliceTimer
+                spin={this.currentDeg(timer.value, timersValue[index])}
+              >
+                <BarTimer
+                  spin={this.currentDeg(timer.value, timersValue[index])}
+                />
+                <FillTimer
+                  spin={this.currentDeg(timer.value, timersValue[index])}
+                />
+              </CliceTimer>
             </WrapperTimer>
           ))}
 

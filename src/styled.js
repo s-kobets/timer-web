@@ -29,8 +29,8 @@ const CliceTimer = styled.div`
   position: absolute;
   width: 1em;
   height: 1em;
-  clip: ${({ theme }) =>
-    theme.spin <= 180
+  clip: ${({ spin }) =>
+    spin <= 180
       ? 'rect(0em, 1em, 1em, 0.5em)'
       : 'rect(auto, auto, auto, auto)'};
 `;
@@ -43,12 +43,12 @@ const BarTimer = styled.div`
   clip: rect(0em, 0.5em, 1em, 0em);
   border-radius: 50%;
   transform: rotate(10deg);
-  transform: ${({ theme }) => `rotate(${theme.spin}deg)`};
+  transform: ${({ spin }) => `rotate(${spin}deg)`};
+  transition: all 0.25s ease-in-out;
 `;
 const FillTimer = BarTimer.extend`
-  transform: rotate(0deg);
-  transform: ${({ theme }) =>
-    theme.spin <= 180 ? 'rotate(0deg)' : 'rotate(180deg)'};
+  transform: ${({ spin }) => (spin <= 180 ? 'rotate(0deg)' : 'rotate(180deg)')};
+  transition: all 0.25s ease-in-out;
 `;
 
 const InputTime = styled.input`
